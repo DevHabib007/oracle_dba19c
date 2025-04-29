@@ -1,0 +1,146 @@
+[oracle@vm1 ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Thu Mar 6 15:01:47 2025
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+######################333
+SQL> shutdown immediate;
+
+##########################
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> 	
+ORACLE instance started.
+
+Total System Global Area 2466249672 bytes
+Fixed Size                  8899528 bytes
+Variable Size             536870912 bytes
+Database Buffers         1912602624 bytes
+Redo Buffers                7876608 bytes
+Database mounted.
+Database opened.
+SQL>
+
+############ startup nomount; ##############
+#########################
+SQL> startup nomount;
+ORACLE instance started.
+
+#########################
+
+Total System Global Area 2466249672 bytes
+Fixed Size                  8899528 bytes
+Variable Size             536870912 bytes
+Database Buffers         1912602624 bytes
+Redo Buffers                7876608 bytes
+SQL> select count(1) from dba_tables;
+select count(1) from dba_tables
+                     *
+ERROR at line 1:
+ORA-01219: database or pluggable database not open: queries allowed on fixed
+tables or views only
+
+
+SQL> host clear;
+
+SQL> select status from v$instance;
+
+STATUS
+------------
+STARTED
+
+SQL>
+
+##### alter database mount; ###########
+#############################
+SQL> alter database mount;
+#############################
+Database altered.
+
+SQL>
+
+SQL> select status from v$instance;
+
+STATUS
+------------
+MOUNTED
+
+SQL>
+
+SQL> select count(1) from dba_tables;
+select count(1) from dba_tables
+                     *
+ERROR at line 1:
+ORA-01219: database or pluggable database not open: queries allowed on fixed
+tables or views only
+
+
+SQL>
+
+########## alter database open; ##########
+#########################
+SQL> alter database open;
+#########################
+
+Database altered.
+
+SQL>
+
+SQL> select count(1) from dba_tables;
+
+  COUNT(1)
+----------
+      2185
+
+SQL>
+
+SQL> select status from v$instance;
+
+STATUS
+------------
+OPEN
+
+SQL>
+
+
+########### Summary ##################
+-- Connect as SYSDBA
+sqlplus / as sysdba
+
+-- Start instance to NOMOUNT
+STARTUP NOMOUNT;
+
+-- Or mount the database
+STARTUP MOUNT;
+
+-- Or fully open
+STARTUP;
+
+-- Start with restriction
+STARTUP RESTRICT;
+---------------------------------------------
+
+######## Shutdown Mode #######################
+
+-- Connect as SYSDBA
+sqlplus / as sysdba
+
+-- Normal shutdown
+SHUTDOWN NORMAL;
+
+-- Immediate shutdown (most commonly used)
+SHUTDOWN IMMEDIATE;
+
+-- Transactional shutdown
+SHUTDOWN TRANSACTIONAL;
+
+-- Abort shutdown (emergency)
+SHUTDOWN ABORT;
+
