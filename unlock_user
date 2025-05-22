@@ -1,0 +1,24 @@
+sqlplus / as sysdba
+or
+sqlplus sys@<service_name> as sysdba
+
+SQL> ALTER USER hr ACCOUNT UNLOCK;
+
+SQL> ALTER USER hr IDENTIFIED BY new_password;
+
+Example: 
+
+SQL> ALTER USER hr IDENTIFIED BY hr;
+
+
+SQL> SELECT username, account_status FROM dba_users WHERE username = 'HR';
+
+USERNAME
+--------------------------------------------------------------------------------
+ACCOUNT_STATUS
+--------------------------------
+HR
+OPEN
+
+
+SQL> conn hr/hr;
