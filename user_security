@@ -1,3 +1,4 @@
+--see which database name where we connected
 show con_name;
 
 --descrive dba_users
@@ -5,3 +6,24 @@ desc dba_users;
 
 --checking database users status
 select username, account_status from dba_users;
+
+--create user
+create user demo identified by demo123;
+
+--checking database user demo status
+SELECT username, account_status, common 
+FROM dba_users 
+WHERE username = 'DEMO';
+
+--
+
+
+--create table
+create table emp(
+empid number constraint emp_pk primary key,
+ename varchar2(100)
+);
+
+
+--see user privileges
+select * from session_privs;
