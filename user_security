@@ -1,0 +1,7 @@
+show con_name;
+
+--descrive dba_users
+desc dba_users;
+
+--checking database users status
+select username, account_status from dba_users;
