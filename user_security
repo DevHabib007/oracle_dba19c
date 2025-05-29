@@ -1,4 +1,3 @@
---see which database name where we connected
 show con_name;
 
 show user;
