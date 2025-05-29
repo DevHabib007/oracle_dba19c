@@ -1,6 +1,10 @@
 --see which database name where we connected
 show con_name;
 
+show user;
+
+select * from session_privs;
+
 --descrive dba_users
 desc dba_users;
 
